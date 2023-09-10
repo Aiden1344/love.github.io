@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>基尼系数计算</title>
+		<script>
+			window.onload = function ()
+			{
+				var calc = document.getElementById('calc');
+				var A = document.getElementById('A');
+				var B = document.getElementById('B');
+				var calc_G = document.getElementById('calc_G');
+				calc.onclick = function()
+				{
+					var text_1 = parseInt(A.value);
+					var text_2 = parseInt(B.value);
+					if(isNaN(text_1) && isNaN(text_2))
+					{
+						alert('两个输入项都错了！你是故意的吗？');
+					}else if(isNaN(text_2))
+					{
+						alert('第二个选项输入错误！');
+					}else if(isNaN(text_1))
+					{
+						alert('第一个选项输入错误！');
+					}else
+					{
+						//alert(A.value + '+' + B.value + '=' + (text_1 + text_2) );
+						//alert('G='+text_1/(text_1+text_2));
+						calc_G.innerHTML = "基尼指数为："+text_1/(text_1+text_2);
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1>基尼系数计算器</h1>
+		<h2>计算方法为 G=A/(A+B)</h2>
+		<div id="main">
+				A：<input type="text" id="A">
+				B：<input type="text" id="B">
+				<input id="calc" type="submit" value="计算">
+		</div>
+		<h3 id="calc_G"></h3>
+	</body>
+	
+</html>
