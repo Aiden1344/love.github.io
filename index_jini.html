@@ -10,6 +10,7 @@
 				var A = document.getElementById('A');
 				var B = document.getElementById('B');
 				var calc_G = document.getElementById('calc_G');
+				var calc_G_two = document.getElementById('calc_G_two');
 				calc.onclick = function()
 				{
 					var text_1 = parseInt(A.value);
@@ -30,6 +31,48 @@
 						calc_G.innerHTML = "基尼指数为："+text_1/(text_1+text_2);
 					}
 				}
+//——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+				var calc_two = document.getElementById('calc_two');	
+				var data = document.getElementById('data');	
+				calc_two.onclick = function()
+				{
+					alert(data.value);
+					var arrray = data.value.split(',');
+					for (let i = 0; i < arrray.length; i++) {
+				        arrray[i]=parseInt(arrray[i]);
+				    }
+					
+					let gini = calculateGiniCoefficient(arrray);
+					console.log(`基尼系数为: ${gini}`);
+					calc_G_two.innerHTML = "基尼指数为："+gini;
+					alert(gini);
+				}
+				
+				function calculateGiniCoefficient(data) {
+				    let n = data.length;
+				    let sortedData = data.slice().sort((a, b) => a - b);
+				
+				    let cumulativeSum = 0;
+				    for (let i = 0; i < n; i++) {
+				        cumulativeSum += sortedData[i];
+				    }
+				
+				    let giniSum = 0;
+				    for (let i = 0; i < n; i++) {
+				        giniSum += (i + 1) * sortedData[i];
+				    }
+				
+				    let giniCoefficient = (2 * giniSum / (n * cumulativeSum)) - ((n + 1) / n);
+				
+				    return giniCoefficient;
+				}
+				
+				// 示例用法
+				
+				
+				//let data = [1000, 2000, 3000, 4000,70000,999999,9999999999]; // 例如收入数据
+				
 			}
 		</script>
 	</head>
@@ -40,8 +83,17 @@
 				A：<input type="text" id="A">
 				B：<input type="text" id="B">
 				<input id="calc" type="submit" value="计算">
+				<h3 id="calc_G"></h3>
 		</div>
-		<h3 id="calc_G"></h3>
+		<h3>以上是简单的计算方法，下面的方法支持多个数据</h3>
+		<div id="main_two">
+			<h3>输入多个数据，使用英文逗号分割(没有做输入检查，输入错误会计算错误)</h3>
+			<textarea id="data" rows="4" cols="50"></textarea>
+			<input id="calc_two" type="submit" value="计算">
+			<h3 id="calc_G_two"></h3>
+		</div>
+		
+		
 	</body>
 	
 </html>
